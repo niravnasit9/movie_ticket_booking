@@ -10,19 +10,41 @@ class TheatreSelectionScreen extends StatefulWidget {
   State<TheatreSelectionScreen> createState() => _TheatreSelectionScreenState();
 }
 
-int selectedDateIndex = 0;
-List<DateTime> dates = List.generate(
-  7,
-  (i) => DateTime.now().add(Duration(days: i)),
-);
-
 class _TheatreSelectionScreenState extends State<TheatreSelectionScreen> {
+  int selectedDateIndex = 0;
+
+  final List<DateTime> dates = List.generate(
+    7,
+    (i) => DateTime.now().add(Duration(days: i)),
+  );
+
+  String _dayName(int weekday) {
+    switch (weekday) {
+      case 1:
+        return "Mon";
+      case 2:
+        return "Tue";
+      case 3:
+        return "Wed";
+      case 4:
+        return "Thu";
+      case 5:
+        return "Fri";
+      case 6:
+        return "Sat";
+      default:
+        return "Sun";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Select Theatre")),
+      appBar: AppBar(title: Text("Select Theatre • ${widget.movie.title}")),
+
       body: Padding(
         padding: const EdgeInsets.all(12.0),
+
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -33,25 +55,29 @@ class _TheatreSelectionScreenState extends State<TheatreSelectionScreen> {
                 itemCount: dates.length,
                 itemBuilder: (context, index) {
                   final date = dates[index];
-
                   bool isSelected = index == selectedDateIndex;
 
                   return GestureDetector(
                     onTap: () {
-                      setState(() => selectedDateIndex = index);
+                      setState(() {
+                        selectedDateIndex = index;
+                      });
                     },
+
                     child: AnimatedContainer(
                       duration: Duration(milliseconds: 200),
-                      margin: const EdgeInsets.symmetric(horizontal: 8),
-                      padding: const EdgeInsets.all(12),
+                      margin: EdgeInsets.symmetric(horizontal: 8),
+                      padding: EdgeInsets.all(12),
+
                       decoration: BoxDecoration(
                         color: isSelected ? Colors.red : Colors.red.shade50,
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
                           color: isSelected ? Colors.red : Colors.red.shade200,
-                          width: 1.2,
+                          width: 1.3,
                         ),
                       ),
+
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -59,10 +85,11 @@ class _TheatreSelectionScreenState extends State<TheatreSelectionScreen> {
                             "${date.day}",
                             style: TextStyle(
                               fontSize: 20,
-                              color: isSelected ? Colors.white : Colors.red,
                               fontWeight: FontWeight.bold,
+                              color: isSelected ? Colors.white : Colors.red,
                             ),
                           ),
+
                           SizedBox(height: 4),
 
                           Text(
@@ -82,14 +109,27 @@ class _TheatreSelectionScreenState extends State<TheatreSelectionScreen> {
                 },
               ),
             ),
+
             SizedBox(height: 15),
 
             Expanded(
               child: ListView(
                 children: [
-                  TheatreCard(name: "PVR"),
-                  TheatreCard(name: "Cinepolis"),
-                  TheatreCard(name: "Miraj Cinemas"),
+                  TheatreCard(
+                    name: "PVR",
+                    movie: widget.movie,
+                    date: dates[selectedDateIndex],
+                  ),
+                  TheatreCard(
+                    name: "Cinepolis",
+                    movie: widget.movie,
+                    date: dates[selectedDateIndex],
+                  ),
+                  TheatreCard(
+                    name: "Miraj Cinemas",
+                    movie: widget.movie,
+                    date: dates[selectedDateIndex],
+                  ),
                 ],
               ),
             ),
@@ -97,24 +137,5 @@ class _TheatreSelectionScreenState extends State<TheatreSelectionScreen> {
         ),
       ),
     );
-  }
-
-  String _dayName(int weekday) {
-    switch (weekday) {
-      case 1:
-        return "Mon";
-      case 2:
-        return "Tue";
-      case 3:
-        return "Wed";
-      case 4:
-        return "Thu";
-      case 5:
-        return "Fri";
-      case 6:
-        return "Sat";
-      default:
-        return "Sun";
-    }
   }
 }
