@@ -19,14 +19,16 @@ class SeatSelectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Select Seats")),
-      body: Center(
-        child: Text(
-          "Movie: ${movie.title}\n"
-          "Theatre: $theatreName\n"
-          "Time: $showTime\n"
-          "Date: ${date.day}/${date.month}/${date.year}",
-          textAlign: TextAlign.center,
-        ),
+      body: Column(
+        children: [
+          Text("Movie: ${movie.title}", textAlign: TextAlign.center),
+          Text("Theatre: $theatreName", textAlign: TextAlign.center),
+          Text("Time: $showTime", textAlign: TextAlign.center),
+          Text(
+            "Date: ${date.day}/${date.month}/${date.year}",
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }
