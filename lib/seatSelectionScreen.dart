@@ -64,8 +64,9 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                 itemBuilder: (context, index) {
                   int row = index ~/ 10;
                   int col = index % 10;
-
-                  String seatId = "${String.fromCharCode(65 + row)}${col + 1}";
+                  int reversedRow = 9 - row;
+                  String seatId =
+                      "${String.fromCharCode(65 + reversedRow)}${col + 1}";
 
                   bool selected = selectedSeats.contains(seatId);
                   return GestureDetector(
@@ -96,6 +97,37 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                 },
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade300,
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(40),
+                    bottom: Radius.circular(10),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 6,
+                      spreadRadius: 2,
+                    ),
+                  ],
+                ),
+                child: Text(
+                  "SCREEN THIS SIDE",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 2,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -103,7 +135,7 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Total seats:",
+                    "Total selected seats:",
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                   ),
                   selectedSeats.isEmpty
@@ -118,6 +150,7 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                 ],
               ),
             ),
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Row(
