@@ -93,12 +93,13 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                             isBooked
                                 ? Colors.grey.shade400
                                 : isSelected
-                                ? Colors.red
+                                ? Colors.green
                                 : Colors.white,
                         border: Border.all(
-                          color: isBooked ? Colors.grey : Colors.red,
+                          width: 2,
+                          color: isBooked ? Colors.grey : Colors.green,
                         ),
-                        borderRadius: BorderRadius.circular(6),
+                        borderRadius: BorderRadius.circular(4),
                       ),
                       child: Text(
                         seatId,

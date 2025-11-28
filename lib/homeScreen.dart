@@ -71,7 +71,7 @@ class MyHomeScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: Text(
-                      "${movie.year}",
+                      movie.type,
                       style: const TextStyle(fontSize: 14, color: Colors.grey),
                     ),
                   ),

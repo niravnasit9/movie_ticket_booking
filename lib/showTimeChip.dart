@@ -24,7 +24,7 @@ class ShowTimeChip extends StatelessWidget {
       child: ChoiceChip(
         label: Text(time),
         selected: false,
-        side: const BorderSide(color: Colors.red, width: 1.2),
+        side: const BorderSide(color: Colors.green, width: 1.2),
         onSelected: (_) async {
           final seat = await showSeatSelectionBottomSheet(context, movie.title);
 

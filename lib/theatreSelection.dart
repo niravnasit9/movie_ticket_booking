@@ -70,10 +70,13 @@ class _TheatreSelectionScreenState extends State<TheatreSelectionScreen> {
                       padding: EdgeInsets.all(12),
 
                       decoration: BoxDecoration(
-                        color: isSelected ? Colors.red : Colors.red.shade50,
+                        color: isSelected ? Colors.red : Colors.transparent,
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                          color: isSelected ? Colors.red : Colors.red.shade200,
+                          color:
+                              isSelected
+                                  ? Colors.transparent
+                                  : Colors.transparent,
                           width: 1.3,
                         ),
                       ),
@@ -86,7 +89,7 @@ class _TheatreSelectionScreenState extends State<TheatreSelectionScreen> {
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color: isSelected ? Colors.white : Colors.red,
+                              color: isSelected ? Colors.white : Colors.black,
                             ),
                           ),
 
@@ -96,10 +99,7 @@ class _TheatreSelectionScreenState extends State<TheatreSelectionScreen> {
                             _dayName(date.weekday),
                             style: TextStyle(
                               fontSize: 14,
-                              color:
-                                  isSelected
-                                      ? Colors.white
-                                      : Colors.red.shade300,
+                              color: isSelected ? Colors.white : Colors.black,
                             ),
                           ),
                         ],
