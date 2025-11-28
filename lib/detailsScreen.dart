@@ -22,7 +22,6 @@ class MovieDetailsScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          // Poster
           ClipRRect(
             borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(22),
@@ -32,7 +31,7 @@ class MovieDetailsScreen extends StatelessWidget {
               movie.posterUrl,
               height: 420,
               width: double.infinity,
-              fit: BoxFit.cover,
+              fit: BoxFit.contain,
             ),
           ),
 
@@ -103,22 +102,13 @@ class MovieDetailsScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(14),
                 ),
               ),
-              onPressed: () async {
-                final seat = await showSeatSelectionBottomSheet(
+              onPressed: () {
+                Navigator.push(
                   context,
-                  movie.title,
+                  MaterialPageRoute(
+                    builder: (context) => TheatreSelectionScreen(movie: movie),
+                  ),
                 );
-
-                if (seat != null) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder:
-                          (context) =>
-                              TheatreSelectionScreen(movie: movie, seat: seat),
-                    ),
-                  );
-                }
               },
               child: const Text(
                 "Book Ticket",

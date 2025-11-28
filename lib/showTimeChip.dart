@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_ticket_booking/movies.dart';
+import 'package:movie_ticket_booking/seatSelectionPopupDialog.dart';
 import 'package:movie_ticket_booking/seatSelectionScreen.dart';
 
 class ShowTimeChip extends StatelessWidget {
@@ -24,18 +25,25 @@ class ShowTimeChip extends StatelessWidget {
         label: Text(time),
         selected: false,
         side: const BorderSide(color: Colors.red, width: 1.2),
-        onSelected: (_) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => SeatSelectionScreen(
-                movie: movie,
-                theatreName: theatreName,
-                showTime: time,
-                date: date,
+        onSelected: (_) async {
+          final seat = await showSeatSelectionBottomSheet(context, movie.title);
+
+          if (seat != null) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder:
+                    (_) => SeatSelectionScreen(
+                      movie: movie,
+                      theatreName: theatreName,
+                      showTime: time,
+                      date: date,
+                      seat: seat,
+                    ),
               ),
-            ),
-          );
+            );
+          }
+          ;
         },
       ),
     );
