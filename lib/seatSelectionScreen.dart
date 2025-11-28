@@ -20,6 +20,7 @@ class SeatSelectionScreen extends StatefulWidget {
 }
 
 class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
+  final List<String> bookedSeats = ["A1", "A2", "B5", "D7", "E3", "J10"];
   List<String> selectedSeats = [];
   final int seatPrice = 250;
 
@@ -65,14 +66,19 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                   int row = index ~/ 10;
                   int col = index % 10;
                   int reversedRow = 9 - row;
+
                   String seatId =
                       "${String.fromCharCode(65 + reversedRow)}${col + 1}";
 
-                  bool selected = selectedSeats.contains(seatId);
+                  bool isSelected = selectedSeats.contains(seatId);
+                  bool isBooked = bookedSeats.contains(seatId);
+
                   return GestureDetector(
                     onTap: () {
+                      if (isBooked) return;
+
                       setState(() {
-                        selected
+                        isSelected
                             ? selectedSeats.remove(seatId)
                             : selectedSeats.add(seatId);
                       });
@@ -81,14 +87,26 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                       duration: Duration(milliseconds: 200),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: selected ? Colors.red : Colors.white,
-                        border: Border.all(color: Colors.red),
+                        color:
+                            isBooked
+                                ? Colors.grey.shade400
+                                : isSelected
+                                ? Colors.red
+                                : Colors.white,
+                        border: Border.all(
+                          color: isBooked ? Colors.grey : Colors.red,
+                        ),
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: Text(
                         seatId,
                         style: TextStyle(
-                          color: selected ? Colors.white : Colors.black,
+                          color:
+                              isBooked
+                                  ? Colors.white
+                                  : isSelected
+                                  ? Colors.white
+                                  : Colors.black,
                           fontSize: 12,
                         ),
                       ),

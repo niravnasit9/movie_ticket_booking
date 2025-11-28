@@ -71,4 +71,61 @@ final List<Movie> moviesList = [
     time: "2h 14m",
     type: "Action",
   ),
+  // New movies
+  Movie(
+    title: "Azaad",
+    year: 2025,
+    posterUrl:
+        "https://upload.wikimedia.org/wikipedia/en/thumb/e/ed/Azaa_film_poster.jpg/250px-Azaa_film_poster.jpg",
+    time: "2h 35m",
+    type: "Historical,Drama",
+  ),
+  Movie(
+    title: "Aabeer Gulaal",
+    year: 2025,
+    posterUrl:
+        "https://m.media-amazon.com/images/M/MV5BZDg3NzExMmUtNTIxNC00NjFkLWJhN2YtNTA1OGMxYTUyZWI1XkEyXkFqcGc%40._V1_FMjpg_UX1000_.jpg",
+    time: "2h 15m",
+    type: "Romantic,Comedy",
+  ),
+  Movie(
+    title: "Baaghi 4",
+    year: 2025,
+    posterUrl:
+        "https://m.media-amazon.com/images/M/MV5BYTRkNDdlZDItMWMzYi00ZDEzLTgyNDQtNGZmM2UxZTY5YmFjXkEyXkFqcGc%40._V1_FMjpg_UX1000_.jpg",
+    time: "2h 25m",
+    type: "Action,Thriller",
+  ),
+  Movie(
+    title: "Thama",
+    year: 2025,
+    posterUrl:
+        "https://m.media-amazon.com/images/M/MV5BOTJiOTdhNTctNjRhYy00YzVjLWExOTQtZmE3OWQxYTJhN2Y5XkEyXkFqcGc%40._V1_.jpg",
+    time: "2h 05m",
+    type: "Horror,Comedy",
+  ),
+  Movie(
+    title: "120 Bahadur",
+    year: 2025,
+    posterUrl:
+        "https://m.media-amazon.com/images/M/MV5BM2ZkZjRhMjItN2ZlNS00MTc3LTkyYWYtYTM1MWVjZGZlOWU5XkEyXkFqcGc%40._V1_FMjpg_UX1000_.jpg",
+    time: "2h 40m",
+    type: "Action,War",
+  ),
+  Movie(
+    title: "Haq",
+    year: 2025,
+    posterUrl:
+        "https://m.media-amazon.com/images/M/MV5BNDQyYzNhOWMtNmIxNi00NTYxLTlkMTItMjJiMDkyMWQ3YTJhXkEyXkFqcGc%40._V1_.jpg",
+    time: "2h 30m",
+    type: "Drama,Social",
+  ),
+  Movie(
+    title: "Tere Ishk Mein",
+    year: 2025,
+    posterUrl:
+        "https://m.media-amazon.com/images/M/MV5BNzMzZjk4NTYtZGViZC00NTJhLWExMzQtMGNlNWFkMTBiZDE0XkEyXkFqcGc%40._V1_.jpg",
+    time: "2h 22m",
+    type: "Romantic,Drama",
+  ),
 ];
