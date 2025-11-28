@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_ticket_booking/infoRowWidget.dart';
 import 'package:movie_ticket_booking/movies.dart';
-import 'package:movie_ticket_booking/seatSelectionPopupDialog.dart';
 import 'package:movie_ticket_booking/theatreSelection.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
@@ -29,9 +28,10 @@ class MovieDetailsScreen extends StatelessWidget {
             ),
             child: Image.network(
               movie.posterUrl,
+
               height: 420,
               width: double.infinity,
-              fit: BoxFit.contain,
+              fit: BoxFit.cover,
             ),
           ),
 

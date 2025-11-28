@@ -11,10 +11,7 @@ class MyHomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "Home",
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w400,
-          ),
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
         ),
       ),
       body: GridView.builder(
