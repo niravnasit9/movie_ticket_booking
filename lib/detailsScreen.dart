@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_ticket_booking/movies.dart';
+import 'package:movie_ticket_booking/seatSelectionPopupDialog.dart';
 import 'package:movie_ticket_booking/theatreSelection.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
@@ -78,15 +79,26 @@ class MovieDetailsScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                onPressed: () {
-                  Navigator.push(
+                onPressed: () async {
+                  final seat = await showSeatSelectionBottomSheet(
                     context,
-                    MaterialPageRoute(
-                      builder:
-                          (context) => TheatreSelectionScreen(movie: movie),
-                    ),
+                    movie.title,
                   );
+
+                  if (seat != null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder:
+                            (context) => TheatreSelectionScreen(
+                              movie: movie,
+                              seat: seat,
+                            ),
+                      ),
+                    );
+                  }
                 },
+
                 child: const Text(
                   "Book Ticket",
                   style: TextStyle(color: Colors.white, fontSize: 18),

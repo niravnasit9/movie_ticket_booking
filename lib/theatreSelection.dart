@@ -4,7 +4,12 @@ import 'package:movie_ticket_booking/theatreCard.dart';
 
 class TheatreSelectionScreen extends StatefulWidget {
   final Movie movie;
-  const TheatreSelectionScreen({super.key, required this.movie});
+  final int seat;
+  const TheatreSelectionScreen({
+    super.key,
+    required this.movie,
+    required this.seat,
+  });
 
   @override
   State<TheatreSelectionScreen> createState() => _TheatreSelectionScreenState();
