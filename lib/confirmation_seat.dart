@@ -173,9 +173,10 @@ class ConfirmationScreen extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                Navigator.pushReplacement(
+                Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (context) => MyHomeScreen()),
+                  (route) => false,
                 );
               },
               child: const Text(
