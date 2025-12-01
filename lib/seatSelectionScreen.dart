@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:movie_ticket_booking/confirmation_seat.dart';
 import 'package:movie_ticket_booking/movies.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SeatSelectionScreen extends StatefulWidget {
   final Movie movie;
@@ -22,12 +24,24 @@ class SeatSelectionScreen extends StatefulWidget {
 }
 
 class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
-  final List<String> bookedSeats = ["A1", "A2", "B5", "D7", "E3", "J10"];
+  List<String> bookedSeats = [];
   List<String> selectedSeats = [];
   final int seatPrice = 250;
 
   int get totalPrice {
     return selectedSeats.length * seatPrice;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadBookedSeats();
+  }
+
+  Future<void> loadBookedSeats() async {
+    final prefs = await SharedPreferences.getInstance();
+    bookedSeats = prefs.getStringList("bookedSeats") ?? [];
+    setState(() {});
   }
 
   @override
@@ -80,11 +94,35 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                       if (isBooked) return;
 
                       setState(() {
-                        isSelected
-                            ? selectedSeats.remove(seatId)
-                            : selectedSeats.add(seatId);
+                        if (selectedSeats.contains(seatId)) {
+                          selectedSeats.remove(seatId);
+                          return;
+                        }
+
+                        int remainingSeats = widget.seat - selectedSeats.length;
+                        if (remainingSeats <= 0) return;
+
+                        List<String> auto = [];
+
+                        int nextCol = col;
+                        while (remainingSeats > 0 && nextCol < 10) {
+                          String nextSeat =
+                              "${String.fromCharCode(65 + reversedRow)}${nextCol + 1}";
+
+                          if (bookedSeats.contains(nextSeat) ||
+                              selectedSeats.contains(nextSeat)) {
+                            break;
+                          }
+
+                          auto.add(nextSeat);
+                          remainingSeats--;
+                          nextCol++;
+                        }
+
+                        selectedSeats.addAll(auto);
                       });
                     },
+
                     child: AnimatedContainer(
                       duration: Duration(milliseconds: 200),
                       alignment: Alignment.center,
@@ -193,6 +231,7 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                 ],
               ),
             ),
+
             Padding(
               padding: const EdgeInsets.all(20.0),
               child:
@@ -206,7 +245,41 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () async {
+                          final prefs = await SharedPreferences.getInstance();
+
+                          List<String> updated = [
+                            ...bookedSeats,
+                            ...selectedSeats,
+                          ];
+                          prefs.setStringList("bookedSeats", updated);
+                          final bookedSeatList = List<String>.from(
+                            selectedSeats,
+                          );
+                          final amountPaid = totalPrice;
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (context) => ConfirmationScreen(
+                                    seats: bookedSeatList,
+                                    totalPrice: amountPaid,
+                                    movieTitle: widget.movie.title,
+                                    theatreName: widget.theatreName,
+                                    showTime: widget.showTime,
+                                    date: widget.date,
+                                  ),
+                            ),
+                          );
+                          print("SEATS: $selectedSeats");
+                          print("AMOUNT: $totalPrice");
+
+                          setState(() {
+                            bookedSeats = updated;
+                            selectedSeats.clear();
+                          });
+                        },
+
                         child: Text(
                           "Pay ₹$totalPrice",
                           style: const TextStyle(
